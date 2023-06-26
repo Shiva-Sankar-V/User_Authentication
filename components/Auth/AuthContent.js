@@ -17,9 +17,11 @@ function AuthContent({ isLogin, onAuthenticate }) {
 
   function switchAuthModeHandler() {
     if (isLogin) {
-      navigation.navigate("Signup");
+      //   console.log(isLogin);
+      navigation.replace("Signup");
     } else {
-      navigation.navigate("Login");
+      //   console.log(isLogin);
+      navigation.replace("Login");
     }
   }
 
