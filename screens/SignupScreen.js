@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import AuthContent from "../components/Auth/AuthContent";
+import { AuthContext } from "../store/auth-context";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { createUser } from "../util/auth";
 import { Alert } from "react-native";
@@ -7,7 +7,7 @@ import { Alert } from "react-native";
 function SignupScreen() {
   const [isAuth, setIsAuth] = useState("");
 
-  const authCtx = useContext(AuthContent);
+  const authCtx = useContext(AuthContext);
 
   async function signupHandler({ email, password }) {
     setIsAuth(true);
