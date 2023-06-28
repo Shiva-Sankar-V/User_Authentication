@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
@@ -6,7 +7,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import { Colors } from "./constants/Style1";
-import AuthContextProvider from "./store/auth-context";
+import AuthContextProvider, { AuthContext } from "./store/auth-context";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,21 +41,23 @@ function AuthenticatedStack() {
 }
 
 function Navigation() {
+  const ctx = useContext(AuthContext);
   return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        <AuthStack />
-      </NavigationContainer>
-    </AuthContextProvider>
+    <NavigationContainer>
+      {!ctx.isAuthenticated && <AuthStack />}
+      {ctx.isAuthenticated && <AuthenticatedStack />}
+    </NavigationContainer>
   );
 }
-
+//SInce useContext hook and Context Provider cannot be used in same component,
+// AuthContextProvider is moved to app component from navigation component
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
-
-      <Navigation />
+      <AuthContextProvider>
+        <Navigation />
+      </AuthContextProvider>
     </>
   );
 }
