@@ -12,8 +12,8 @@ async function authenticate(mode, email2, password2) {
     password: password2,
     returnSecureToken: true,
   });
+  console.log(response.data);
 }
-console.log(response.data);
 
 export async function createUser(email, password) {
   await authenticate("signUp", email, password);
