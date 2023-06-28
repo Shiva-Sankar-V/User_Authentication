@@ -18,9 +18,8 @@ function LoginScreen() {
         "Autentication failed!",
         "Could not log in. Please check your credentials or try again later!"
       );
+      setIsAuth(false);
     }
-
-    setIsAuth(false);
   }
 
   if (isAuth) {
