@@ -12,15 +12,18 @@ async function authenticate(mode, email2, password2) {
     password: password2,
     returnSecureToken: true,
   });
-  console.log(response.data);
+  //   console.log(response.data);
+  const token = response.data.idToken;
+
+  return token;
 }
 
-export async function createUser(email, password) {
-  await authenticate("signUp", email, password);
+export function createUser(email, password) {
+  return authenticate("signUp", email, password);
 }
 
-export async function login(email, password) {
-  await authenticate("signInWithPassword", email, password);
+export function login(email, password) {
+  return authenticate("signInWithPassword", email, password);
 }
 
 //API Key in the URL should be replaced with your API key which is available in the firebase project settings

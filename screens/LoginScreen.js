@@ -6,10 +6,13 @@ import { Alert } from "react-native";
 function LoginScreen() {
   const [isAuth, setIsAuth] = useState("");
 
+  const authCtx = useContext(AuthContent);
+
   async function loginHandler({ email, password }) {
     setIsAuth(true);
     try {
-      await login(email, password);
+      const token = await login(email, password);
+      authCtx.authenticate(token);
     } catch (error) {
       Alert.alert(
         "Autentication failed!",
