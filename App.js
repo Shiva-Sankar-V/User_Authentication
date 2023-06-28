@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import IconButton from "./components/ui/IconButton";
 import LoginScreen from "./screens/LoginScreen";
@@ -65,12 +66,29 @@ function Navigation() {
 }
 //SInce useContext hook and Context Provider cannot be used in same component,
 // AuthContextProvider is moved to app component from navigation component
+
+function Root() {
+  const authCtx = useContext(AuthContext);
+  useEffect(() => {
+    async function getToken() {
+      const fetchedToken = await AsyncStorage.getItem("token");
+
+      if (fetchedToken) {
+        authCtx.authenticate(fetchedToken);
+      }
+    }
+    getToken();
+  }, []);
+
+  return <Navigation />;
+}
+
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
       <AuthContextProvider>
-        <Navigation />
+        <Root />
       </AuthContextProvider>
     </>
   );
