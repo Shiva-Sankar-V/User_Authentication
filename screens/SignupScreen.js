@@ -3,7 +3,7 @@ import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { createUser } from "../util/auth";
 
-function SignupScreen({ navigation }) {
+function SignupScreen() {
   const [isAuth, setIsAuth] = useState("");
 
   async function signupHandler({ email, password }) {
